@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Real App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Routing, auth, Material UI
 
 ## Available Scripts
 
