@@ -5,7 +5,7 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import Routes from "./routes/Routes";
 import useAuth from "./hooks/useAuth";
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onLogOut = () => {
     auth.logOut();
-    history.push("/login");
+    navigate("/login");
   };
 
   return (

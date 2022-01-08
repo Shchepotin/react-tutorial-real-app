@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
@@ -20,35 +20,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Routes() {
+function AppRoutes() {
   const classes = useStyles();
   const auth = useAuth();
 
   return auth.isLoaded ? (
-    <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+        }
+      />
+      <Route
+        path="/registration"
+        element={
+          <GuestRoute>
+            <Registration />
+          </GuestRoute>
+        }
+      />
 
-      <PrivateRoute path="/profile">
-        <Profile />
-      </PrivateRoute>
-
-      <GuestRoute path="/login">
-        <Login />
-      </GuestRoute>
-      <GuestRoute path="/registration">
-        <Registration />
-      </GuestRoute>
-
-      <Route path="/not-found-404">
-        <NotFound />
-      </Route>
-      <Redirect to="/not-found-404" />
-    </Switch>
+      <Route path="/not-found-404" element={<NotFound />} />
+      <Route path="*" element={<Navigate to="/not-found-404" />} />
+    </Routes>
   ) : (
     <Container maxWidth="md" className={classes.root}>
-      <Grid container spacing={3} alignItems="center" justify="center">
+      <Grid container spacing={3} alignItems="center" justifyContent="center">
         <Grid item>
           <CircularProgress color="inherit" />
         </Grid>
@@ -57,4 +66,4 @@ function Routes() {
   );
 }
 
-export default Routes;
+export default AppRoutes;
