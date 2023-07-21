@@ -115,7 +115,6 @@ function Login() {
             </Button>
             <Button
               color="inherit"
-              type="submit"
               className={classes.buttonSpacing}
               component={Link}
               to="/registration"
